@@ -1,8 +1,8 @@
 #include "shipitem.h"
 
 ShipItem::ShipItem() :
-    m_x(0),
-    m_y(0),
+    m_x(-1000),
+    m_y(1000),
     m_scale(500000.0)
 {
 }
@@ -23,14 +23,21 @@ void ShipItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 QRectF ShipItem::boundingRect() const
 {
-    qDebug()<<QRectF(m_x , -m_y-30 , 20, 60)<<"ship bound";
+    //qDebug()<<QRectF(m_x , -m_y-30 , 20, 60)<<"ship bound";
     return QRectF(m_x , -m_y-30 ,
                   20, 60);
 }
-void ShipItem::setPosition(double latitude,double longitude)
+void ShipItem::setPosition(double latitude,double longitude,QString PJ)
 {
-    m_x = latitude * m_scale;
-    m_y = longitude * m_scale;
+    m_PJ = PJ;
+    if(m_PJ[0] == 'N')
+        m_x = latitude * m_scale;
+    else
+        m_x = -latitude * m_scale;
+    if(m_PJ[1] == 'E')
+        m_y = longitude * m_scale;
+    else
+        m_y = -longitude * m_scale;
 }
 void ShipItem::setScale(double scale)
 {

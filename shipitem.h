@@ -12,12 +12,13 @@ class ShipItem : public QGraphicsItem
     double m_lat;
     double m_lon;
     double m_scale;
+    QString m_PJ;
 public:
     ShipItem();
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget);
-    void setPosition(double latitude,double longitude);
+    void setPosition(double latitude,double longitude,QString PJ);
     void setScale(double scale);
     double getX()
     {

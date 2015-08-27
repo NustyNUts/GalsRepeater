@@ -13,7 +13,7 @@ void Logic::getMsg(QString msg)
 {
     QRegExp regExp;
     QString str;
-    str = "$GL,1,0560.221002,N,01502.567,J,0560.221112,N,01502.567,J,0560.221,N,01502.567,J,0560.221,N,01502.567,J";
+    //str = "$GL,1,0560.221002,N,01502.567,J,0560.221112,N,01502.567,J,0560.221,N,01502.567,J,0560.221,N,01502.567,J";
     regExp.setPattern("(\\d\\d)(\\d\\d)(\\d\\d).....(\\D).(\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d{0,4}.\\d{0,4}).(\\d{0,3}.\\d{0,5})");
     //regExp.indexIn(str);
     regExp.indexIn(msg);
@@ -34,16 +34,17 @@ void Logic::getMsg(QString msg)
     {
         QStringList strList;
         strList = msg.split(",");
-        qDebug()<<strList;
+        //qDebug()<<strList;
         if(strList[0]=="$GL")
         {
-            Gals* tmp = new Gals();
-            tmp->setNumGals(strList[1].toInt());
+            gals->clear();
+            Gals* tmpGals= new Gals();
+            tmpGals->setNumGals(strList[1].toInt());
             for(int i = 2;i<=strList.size()-4;i+=4)
-            {
-                tmp->addPoint(QPointF(strList[i].toDouble(),strList[i+2].toDouble()),strList[i+1]+strList[i+3]);
+            {          
+                tmpGals->addPoint(QPointF(strList[i].toDouble(),strList[i+2].toDouble()),strList[i+1]+strList[i+3]);
             }
-            gals->append(tmp);
+            gals->append(tmpGals);
             emit updateGals();
         }
     }

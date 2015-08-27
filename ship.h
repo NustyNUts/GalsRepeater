@@ -54,6 +54,10 @@ public:
     {
         return m_speed;
     }
+    QString getPJ()
+    {
+        return m_lonP+m_latJ;
+    }
 
 signals:
 

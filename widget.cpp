@@ -7,7 +7,7 @@ Widget::Widget(QWidget *parent) :
     ui(new Ui::Widget)
 {
     m_scale = 1000000;
-    m_scene = new QGraphicsScene(0,-90*m_scale,180*m_scale,90*m_scale);
+    m_scene = new QGraphicsScene(-180*m_scale,-90*m_scale,180*m_scale*2,90*m_scale*2);
     m_gridItem = new GridItem();
     m_shipItem = new ShipItem();
     m_galsItem = new GalsItem();
@@ -66,13 +66,13 @@ void Widget::setShipCoords()
 
 
     m_scene->removeItem(m_shipItem);
-    m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude());
+    m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ());
     m_scene->addItem(m_shipItem);
     ui->graphicsView->centerOn(m_shipItem);
     m_scene->update(m_shipItem->boundingRect());
 
     m_scene->removeItem(m_gridItem);
-    m_gridItem->setShipCoords(m_shipItem->getX(),m_shipItem->getY());
+    m_gridItem->setShipCoords(m_shipItem->getX(),m_shipItem->getY(),m_logic->ship->getPJ());
     m_scene->addItem(m_gridItem);
     m_scene->update(m_gridItem->boundingRect());
     m_scene->update(m_galsItem->boundingRect());
@@ -125,20 +125,22 @@ void Widget::on_comboBox_currentIndexChanged(int index)
     m_scale = (index+1) * 100000;
     m_shipItem->setScale(m_scale);
     m_scene->removeItem(m_shipItem);
-    m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude());
+    m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ());
     m_scene->addItem(m_shipItem);
     ui->graphicsView->centerOn(m_shipItem);
 
     m_scene->removeItem(m_gridItem);
-    m_gridItem->setShipCoords(m_shipItem->getX(),m_shipItem->getY());
+    m_gridItem->setShipCoords(m_shipItem->getX(),m_shipItem->getY(),m_logic->ship->getPJ());
     m_gridItem->setScale(m_scale);
     m_scene->addItem(m_gridItem);
     m_scene->update(m_gridItem->boundingRect());
 
     m_scene->removeItem(m_galsItem);
     m_galsItem->setScale(m_scale);
+    m_galsItem->setGals(m_logic->gals);
     m_scene->addItem(m_galsItem);
     m_scene->update(m_galsItem->boundingRect());
 
+    m_scene->update();
 
 }

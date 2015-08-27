@@ -23,8 +23,14 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         if(i>m_shipX-700/2&&i<m_shipX+700)
         {
             painter->setPen(QColor("#F7BC22"));
-            painter->drawText(i,-m_shipY-200,QString::number(tmpInt)+","+QString::number(tmpFracPart,'f',3));
-            painter->drawText(i,-m_shipY+220,QString::number(tmpInt)+","+QString::number(tmpFracPart,'f',3));
+            QChar tmpP;
+
+            if(i<0)
+                tmpP = 'S';
+            else
+                tmpP = 'N';
+            painter->drawText(i,-m_shipY-200,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpP);
+            painter->drawText(i,-m_shipY+220,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpP);
             painter->setPen("black");
         }
     }
@@ -37,9 +43,14 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         tmpFracPart = ((i/(double)m_scale) - tmpInt )*60.0;
         if(i<m_shipY+200 && i>m_shipY-200)
         {
+            QChar tmpJ;
+            if(i<0)
+                tmpJ = 'W';
+            else
+                tmpJ = 'E';
             painter->setPen(QColor("#F7BC22"));
-            painter->drawText(m_shipX-360,-i+20,QString::number(tmpInt)+","+QString::number(tmpFracPart,'f',3));
-            painter->drawText(m_shipX+320,-i+20,QString::number(tmpInt)+","+QString::number(tmpFracPart,'f',3));
+            painter->drawText(m_shipX-360,-i+20,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
+            painter->drawText(m_shipX+320,-i+20,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
             painter->setPen("black");
         }
     }
