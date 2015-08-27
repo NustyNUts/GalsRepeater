@@ -19,6 +19,7 @@ void ShipItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawLine(m_x,-m_y-30,m_x-k/2,-m_y-k/1.2);
     painter->drawLine(m_x,-m_y-30,m_x+k/2,-m_y-k/1.2);
     painter->drawLine(m_x,-m_y,m_x,-m_y+30);
+    qDebug()<<m_x<<m_y<<"m_x,m_y";
 }
 
 QRectF ShipItem::boundingRect() const

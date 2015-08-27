@@ -4,12 +4,17 @@
 GalsItem::GalsItem()
 {
     m_gals = new QVector<Gals*>();
-    m_scale = 100000;
+    m_scale = 500000;
+    minX=INT_MAX;
+    minY=INT_MAX;
+    maxX=INT_MIN;
+    maxY=INT_MIN;
 }
 void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
            QWidget *widget)
 {
-
+    double x,y,x1,y1;
+    painter->setPen(QPen(QBrush("#890C06"),1.5));
     for(int i=0;i<m_gals->size();i++)
     {
         QVector<QString>* tmpPJ;
@@ -24,7 +29,7 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
            // tmpPointVector->value(j).toPoint();
             //tmpPointVector->value(j+1).toPoint();
 
-            double x,y,x1,y1;
+
             if(tmpPJ->value(j)[0]=='N')
                 x=tmpPointVector->value(j).rx()*m_scale;
             else
@@ -46,17 +51,16 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawLine(x,y,x1,y1);
             painter->drawEllipse(x-5,y-5,10,10);
             painter->drawEllipse(x1-5,y1-5,10,10);
+            qDebug()<<x<<y<<x1<<y1<<"x,y,x1,y1";
 
         }
+
     }
-    //qDebug()<<"draw gals";
+    //painter->drawRect(m_boundRect);
 }
 void GalsItem::setGals(QVector<Gals *>* gals)
 {
-    int minX=INT_MAX;
-    int minY=INT_MAX;
-    int maxX=INT_MIN;
-    int maxY=INT_MIN;
+
     m_gals = gals;
     for(int i=0;i<m_gals->size();i++)
     {
@@ -79,24 +83,27 @@ void GalsItem::setGals(QVector<Gals *>* gals)
 
             tmpPoint.setX(x);
             tmpPoint.setY(y);
-            qDebug()<<tmpPointVector->value(j).rx()<<tmpPointVector->value(j).ry()<<"tmpPoint gals";
+           // qDebug()<<tmpPointVector->value(j).rx()<<tmpPointVector->value(j).ry()<<"tmpPoint gals";
             if(x<minX)
                 minX=x;
             if(y<minY)
                 minY=y;
-
             if(x>maxX)
                 maxX=x;
             if(y>maxY)
                 maxY=y;
-            qDebug()<<x<<y;
+
         }
+        m_boundRect.setRect(minX,minY,maxX-minX,maxY-minY);
     }
-    m_boundRect.setRect(maxX-10,maxY-10,maxX-minX,maxY-minY);
-    qDebug()<<m_boundRect;
+
+
+
+
 }
 QRectF GalsItem::boundingRect() const
 {
     //qDebug()<<m_boundRect<<"gals bound";
+    qDebug()<<m_boundRect;
     return m_boundRect;
 }

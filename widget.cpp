@@ -79,6 +79,7 @@ void Widget::setShipCoords()
 
     m_scene->removeItem(m_galsItem);
     m_galsItem->setScale(m_scale);
+    m_galsItem->setGals(m_logic->gals);
     m_scene->addItem(m_galsItem);
     m_scene->update(m_galsItem->boundingRect());
      m_scene->update();

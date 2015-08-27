@@ -37,7 +37,12 @@ void Logic::getMsg(QString msg)
         //qDebug()<<strList;
         if(strList[0]=="$GL")
         {
-            gals->clear();
+            if(strList[1] == "0")
+            {
+                gals->clear();
+                emit updateGals();
+                return;
+            }
             Gals* tmpGals= new Gals();
             tmpGals->setNumGals(strList[1].toInt());
             for(int i = 2;i<=strList.size()-4;i+=4)
