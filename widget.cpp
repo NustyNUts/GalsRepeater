@@ -27,9 +27,6 @@ Widget::Widget(QWidget *parent) :
     ui->comboBox->setCurrentIndex(4);
     m_scale = 500000;
     m_scene->setBackgroundBrush(QColor("#0A7AF5"));
-
-
-
     m_scene->addItem(m_shipItem);
     m_scene->addItem(m_gridItem);
     m_scene->addItem(m_galsItem);
@@ -67,6 +64,7 @@ void Widget::setShipCoords()
 
     m_scene->removeItem(m_shipItem);
     m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ());
+    m_shipItem->setCourse(m_logic->ship->getCourse());
     m_scene->addItem(m_shipItem);
     ui->graphicsView->centerOn(m_shipItem);
     m_scene->update(m_shipItem->boundingRect());

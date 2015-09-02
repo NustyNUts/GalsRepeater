@@ -18,13 +18,14 @@ private:
 
     QTime m_sysTime;
     QString m_gpsTime;
-    Client* m_client;
+
+    QTimer* timer;
 
 public:
     explicit Logic(QObject *parent = 0);
     Ship* ship;
     QVector<Gals*>* gals;
-
+    Client* client;
     QString getGpsTime()
     {
         return m_gpsTime;
@@ -33,6 +34,7 @@ public:
 signals:
     void updateShipPosition();
     void updateGals();
+    void noData();
 public slots:
     void getMsg(QString msg);
 

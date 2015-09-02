@@ -51,7 +51,7 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawLine(x,y,x1,y1);
             painter->drawEllipse(x-5,y-5,10,10);
             painter->drawEllipse(x1-5,y1-5,10,10);
-            qDebug()<<x<<y<<x1<<y1<<"x,y,x1,y1";
+//            qDebug()<<x<<y<<x1<<y1<<"x,y,x1,y1";
 
         }
 
@@ -104,6 +104,5 @@ void GalsItem::setGals(QVector<Gals *>* gals)
 QRectF GalsItem::boundingRect() const
 {
     //qDebug()<<m_boundRect<<"gals bound";
-    qDebug()<<m_boundRect;
     return m_boundRect;
 }

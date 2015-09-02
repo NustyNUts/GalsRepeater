@@ -3,21 +3,17 @@
 Logic::Logic(QObject *parent) :
     QObject(parent)
 {
-    m_client = new Client();
+    client = new Client();
     ship = new Ship();
     gals = new QVector<Gals*>();
-    connect(m_client,SIGNAL(messageFormed(QString)),this,SLOT(getMsg(QString)));
+    connect(client,SIGNAL(messageFormed(QString)),this,SLOT(getMsg(QString)));
 }
 
 void Logic::getMsg(QString msg)
 {
     QRegExp regExp;
-    QString str;
-    //str = "$GL,1,0560.221002,N,01502.567,J,0560.221112,N,01502.567,J,0560.221,N,01502.567,J,0560.221,N,01502.567,J";
     regExp.setPattern("(\\d\\d)(\\d\\d)(\\d\\d).....(\\D).(\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d{0,4}.\\d{0,4}).(\\d{0,3}.\\d{0,5})");
-    //regExp.indexIn(str);
     regExp.indexIn(msg);
-   // qDebug()<<regExp.cap(0);
     if(regExp.cap(0)!="")
     {
         m_gpsTime = regExp.cap(1)+":"+regExp.cap(2)+":"+regExp.cap(3);
@@ -34,7 +30,6 @@ void Logic::getMsg(QString msg)
     {
         QStringList strList;
         strList = msg.split(",");
-        //qDebug()<<strList;
         if(strList[0]=="$GL")
         {
             if(strList[1] == "0")
@@ -46,8 +41,15 @@ void Logic::getMsg(QString msg)
             Gals* tmpGals= new Gals();
             tmpGals->setNumGals(strList[1].toInt());
             for(int i = 2;i<=strList.size()-4;i+=4)
-            {          
-                tmpGals->addPoint(QPointF(strList[i].toDouble(),strList[i+2].toDouble()),strList[i+1]+strList[i+3]);
+            {
+                QRegExp regExpLat;
+                QRegExp regExpLon;
+                regExpLat.setPattern("(\\d\\d)(\\d\\d.\\d{0,6})");
+                regExpLon.setPattern("(\\d\\d\\d)(\\d\\d).(\\d{0,6})");
+                regExpLat.indexIn(strList[i]);
+                regExpLon.indexIn(strList[i+2]);
+                tmpGals->addPoint(QPointF(regExpLat.cap(1).toDouble()+regExpLat.cap(2).toDouble()/60,regExpLon.cap(1).toDouble()+regExpLon.cap(2).toDouble()/60),strList[i+1]+strList[i+3]);// if degree.min
+                //tmpGals->addPoint(QPointF(strList[i].toDouble(),strList[i+2].toDouble()),strList[i+1]+strList[i+3]); //if degree
             }
             gals->append(tmpGals);
             emit updateGals();

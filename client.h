@@ -27,6 +27,7 @@ public slots:
     void disconnected();
 signals:
     void messageFormed(QString msg);
+    void disconnectedFromHost();
 
 
 };

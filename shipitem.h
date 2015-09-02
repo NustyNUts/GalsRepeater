@@ -4,14 +4,17 @@
 #include <QPainter>
 #include <QPen>
 #include <QDebug>
+#include <math.h>
 
 class ShipItem : public QGraphicsItem
 {
-    int m_x;
-    int m_y;
+    double m_x;
+    double m_y;
     double m_lat;
     double m_lon;
     double m_scale;
+    double m_angle;
+    QRect m_boundrect;
     QString m_PJ;
 public:
     ShipItem();
@@ -29,7 +32,10 @@ public:
     {
         return m_y;
     }
-
+    void setCourse(double course)
+    {
+        m_angle = course;
+    }
 };
 
 #endif // SHIPITEM_H
