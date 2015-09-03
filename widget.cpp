@@ -8,12 +8,15 @@ Widget::Widget(QWidget *parent) :
 {
     m_scale = 1000000;
     m_scene = new QGraphicsScene(-180*m_scale,-90*m_scale,180*m_scale*2,90*m_scale*2);
+    m_sceneCap = new QGraphicsScene();
     m_gridItem = new GridItem();
     m_shipItem = new ShipItem();
     m_galsItem = new GalsItem();
+    m_shiptail = new ShipTail();
     m_logic = new Logic();
     ui->setupUi(this);
-    ui->graphicsView->setScene(m_scene);
+    //ui->graphicsView->setScene(m_scene);
+    ui->graphicsView->setScene(m_sceneCap);
     ui->comboBox->addItem("1:100 000");
     ui->comboBox->addItem("1:200 000");
     ui->comboBox->addItem("1:300 000");
@@ -27,9 +30,11 @@ Widget::Widget(QWidget *parent) :
     ui->comboBox->setCurrentIndex(4);
     m_scale = 500000;
     m_scene->setBackgroundBrush(QColor("#0A7AF5"));
+    m_sceneCap->setBackgroundBrush(QColor("#0A7AF5"));
     m_scene->addItem(m_shipItem);
     m_scene->addItem(m_gridItem);
     m_scene->addItem(m_galsItem);
+    m_scene->addItem(m_shiptail);
     ui->graphicsView->centerOn(m_shipItem);
     m_shipItem->setScale(m_scale);
     m_galsItem->setScale(m_scale);
@@ -38,6 +43,27 @@ Widget::Widget(QWidget *parent) :
     m_scene->update(m_galsItem->boundingRect());
     connect(m_logic,SIGNAL(updateShipPosition()),this,SLOT(setShipCoords()));
     connect(m_logic,SIGNAL(updateGals()),this,SLOT(setGals()));
+    connect(m_logic->client,SIGNAL(readFail(QString)),this,SLOT(noData(QString)));
+}
+void Widget::noData(QString msg)
+{
+    ui->graphicsView->setScene(m_sceneCap);
+    static QGraphicsTextItem* textItem = new QGraphicsTextItem();
+
+    m_sceneCap->removeItem(textItem);
+    textItem->setPos(ui->graphicsView->width()/2,ui->graphicsView->height()/2);
+    textItem->setTextWidth(300);
+    textItem->setFont(QFont("Times New Roman",18,2));
+    textItem->setDefaultTextColor(QColor("#AD1F1F"));
+    textItem->setPlainText(msg);
+    m_sceneCap->addItem(textItem);
+    ui->graphicsView->centerOn(textItem);
+    m_sceneCap->update(textItem->boundingRect());
+    ui->speedLabel->setText("");
+    ui->courseLabel->setText("");
+    ui->latLabel->setText("");
+    ui->lonLabel->setText("");
+    ui->gpsTimeLabel->setText("");
 }
 
 Widget::~Widget()
@@ -47,6 +73,7 @@ Widget::~Widget()
 }
 void Widget::setShipCoords()
 {
+    ui->graphicsView->setScene(m_scene);
     ui->speedLabel->setText(QString::number(m_logic->ship->getSpeed()));
     ui->courseLabel->setText(QString::number(m_logic->ship->getCourse()));
     int latInt;
@@ -57,8 +84,8 @@ void Widget::setShipCoords()
     latFracPart = (m_logic->ship->getLatitude()-latInt)*60;
     lonInt = m_logic->ship->getLongitude();
     lonFracPart = (m_logic->ship->getLongitude()-lonInt)*60;
-    ui->latLabel->setText(QString::number(latInt)+","+QString::number(latFracPart,'f',6));
-    ui->lonLabel->setText(QString::number(lonInt)+","+QString::number(lonFracPart,'f',6));
+    ui->latLabel->setText(QString::number(latInt)+","+QString::number(latFracPart,'f',5));
+    ui->lonLabel->setText(QString::number(lonInt)+","+QString::number(lonFracPart,'f',5));
     ui->gpsTimeLabel->setText(m_logic->getGpsTime());
 
 
@@ -69,6 +96,10 @@ void Widget::setShipCoords()
     ui->graphicsView->centerOn(m_shipItem);
     m_scene->update(m_shipItem->boundingRect());
 
+    m_scene->removeItem(m_shiptail);
+    m_shiptail->addPoint(QPointF(m_logic->ship->getLatitude(),m_logic->ship->getLongitude()));
+    m_scene->addItem(m_shiptail);
+    m_scene->update(m_shiptail->boundingRect());
     m_scene->removeItem(m_gridItem);
     m_gridItem->setShipCoords(m_shipItem->getX(),m_shipItem->getY(),m_logic->ship->getPJ());
     m_scene->addItem(m_gridItem);

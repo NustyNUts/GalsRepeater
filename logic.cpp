@@ -11,6 +11,7 @@ Logic::Logic(QObject *parent) :
 
 void Logic::getMsg(QString msg)
 {
+    qDebug()<<msg<<"msg";
     QRegExp regExp;
     regExp.setPattern("(\\d\\d)(\\d\\d)(\\d\\d).....(\\D).(\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d{0,4}.\\d{0,4}).(\\d{0,3}.\\d{0,5})");
     regExp.indexIn(msg);
