@@ -17,6 +17,8 @@ private:
     QString m_hostAddr;
     qint16 m_hostPort;
     QTimer* m_timer;
+    QTimer* m_timerCheckData;
+    bool m_connectState;
 
 public:
     Client();
@@ -25,9 +27,10 @@ public slots:
     void connected();
     void readHostMessage();
     void disconnected();
+    void noData();
 signals:
     void messageFormed(QString msg);
-    void disconnectedFromHost();
+    void readFail(QString msg);
 
 
 };
