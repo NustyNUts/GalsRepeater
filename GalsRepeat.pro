@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     griditem.cpp \
     shipitem.cpp \
     gals.cpp \
-    galsitem.cpp
+    galsitem.cpp \
+    shiptail.cpp
 
 HEADERS  += widget.h \
     client.h \
@@ -28,6 +29,7 @@ HEADERS  += widget.h \
     griditem.h \
     shipitem.h \
     gals.h \
-    galsitem.h
+    galsitem.h \
+    shiptail.h
 
 FORMS    += widget.ui

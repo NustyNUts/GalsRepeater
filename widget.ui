@@ -47,7 +47,7 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>9</x>
@@ -133,7 +133,7 @@
         <widget class="QLabel" name="latLabel">
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>130</width>
            <height>0</height>
           </size>
          </property>
@@ -269,7 +269,7 @@
         <widget class="QLabel" name="lonLabel">
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>130</width>
            <height>0</height>
           </size>
          </property>
@@ -296,47 +296,6 @@
           </size>
          </property>
         </spacer>
-       </item>
-       <item row="1" column="5">
-        <widget class="QLabel" name="label_7">
-         <property name="minimumSize">
-          <size>
-           <width>80</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>80</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Время SYS:</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="6">
-        <widget class="QLabel" name="sysTimeLabel">
-         <property name="minimumSize">
-          <size>
-           <width>60</width>
-           <height>0</height>
-          </size>
-         </property>
-         <property name="maximumSize">
-          <size>
-           <width>60</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>00:00:00</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
