@@ -63,7 +63,7 @@ void ShipItem::setPosition(double latitude,double longitude,QString PJ)
         m_y = longitude * m_scale;
     else
         m_y = -longitude * m_scale;
-
+        qDebug()<<m_x<<m_y<<"ship coords";
      m_boundrect.setRect(m_x-10,-m_y-30,20,60);
 }
 void ShipItem::setScale(double scale)

@@ -83,7 +83,7 @@ void GalsItem::setGals(QVector<Gals *>* gals)
 
             tmpPoint.setX(x);
             tmpPoint.setY(y);
-           // qDebug()<<tmpPointVector->value(j).rx()<<tmpPointVector->value(j).ry()<<"tmpPoint gals";
+            qDebug()<<x<<y<<"tmpPoint gals";
             if(x<minX)
                 minX=x;
             if(y<minY)
@@ -92,7 +92,6 @@ void GalsItem::setGals(QVector<Gals *>* gals)
                 maxX=x;
             if(y>maxY)
                 maxY=y;
-
         }
         m_boundRect.setRect(minX,minY,maxX-minX,maxY-minY);
     }

@@ -4,9 +4,6 @@
 #include <QObject>
 #include <QTime>
 #include <QRegExp>
-#include <QNmeaPositionInfoSource>
-#include <QGeoPositionInfo>
-#include <QGeoCoordinate>
 #include "client.h"
 #include "gals.h"
 #include "ship.h"

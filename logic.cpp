@@ -11,7 +11,6 @@ Logic::Logic(QObject *parent) :
 
 void Logic::getMsg(QString msg)
 {
-    qDebug()<<msg<<"msg";
     QRegExp regExp;
     regExp.setPattern("(\\d\\d)(\\d\\d)(\\d\\d).....(\\D).(\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d\\d\\d)(\\d\\d.\\d{0,10}).(\\D).(\\d{0,4}.\\d{0,4}).(\\d{0,3}.\\d{0,5})");
     regExp.indexIn(msg);
@@ -46,9 +45,11 @@ void Logic::getMsg(QString msg)
                 QRegExp regExpLat;
                 QRegExp regExpLon;
                 regExpLat.setPattern("(\\d\\d)(\\d\\d.\\d{0,6})");
-                regExpLon.setPattern("(\\d\\d\\d)(\\d\\d).(\\d{0,6})");
-                regExpLat.indexIn(strList[i]);
-                regExpLon.indexIn(strList[i+2]);
+                regExpLon.setPattern("(\\d\\d\\d)(\\d\\d.\\d{0,6})");
+                regExpLat.indexIn(" "+strList[i]);
+                regExpLon.indexIn("d"+strList[i+2]);
+                qDebug()<<strList[i+2];
+                qDebug()<<regExpLon.cap(1)<<regExpLon.cap(2)<<"reg";//.toDouble()+regExpLat.cap(2).toDouble()/60<<regExpLon.cap(1).toDouble()+regExpLon.cap(2).toDouble()/60;
                 tmpGals->addPoint(QPointF(regExpLat.cap(1).toDouble()+regExpLat.cap(2).toDouble()/60,regExpLon.cap(1).toDouble()+regExpLon.cap(2).toDouble()/60),strList[i+1]+strList[i+3]);// if degree.min
                 //tmpGals->addPoint(QPointF(strList[i].toDouble(),strList[i+2].toDouble()),strList[i+1]+strList[i+3]); //if degree
             }

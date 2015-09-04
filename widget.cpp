@@ -119,7 +119,7 @@ void Widget::setGals()
     m_galsItem->setGals(m_logic->gals);
     m_scene->addItem(m_galsItem);
     m_scene->update(m_galsItem->boundingRect());
-     m_scene->update();
+    m_scene->update();
 }
 
 //$GPRMC,hhmmss.sss,A,GGMM.MM,P,gggmm.mm,J,v.v,b.b,ddmmyy,x.x,n,m*hh<CR><LF>
