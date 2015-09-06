@@ -4,6 +4,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QPen>
+#include <QStaticText>
 #include <QDebug>
 #include <math.h>
 

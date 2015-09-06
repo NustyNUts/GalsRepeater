@@ -19,8 +19,8 @@ void Logic::getMsg(QString msg)
         m_gpsTime = regExp.cap(1)+":"+regExp.cap(2)+":"+regExp.cap(3);
         if(regExp.cap(4)=="A")//dostovernost'?
         {
-            ship->setLongitude(regExp.cap(5).toDouble()+regExp.cap(6).toDouble()/60,regExp.cap(7));
-            ship->setLatitude(regExp.cap(8).toDouble()+regExp.cap(9).toDouble()/60,regExp.cap(10));
+            ship->setLongitude(regExp.cap(8).toDouble()+regExp.cap(9).toDouble()/60,regExp.cap(10));
+            ship->setLatitude(regExp.cap(5).toDouble()+regExp.cap(6).toDouble()/60,regExp.cap(7));
             ship->setSpeed(regExp.cap(11).toDouble());
             ship->setCourse(regExp.cap(12).toDouble());
             emit updateShipPosition();
@@ -50,7 +50,7 @@ void Logic::getMsg(QString msg)
                 regExpLon.indexIn("d"+strList[i+2]);
                 qDebug()<<strList[i+2];
                 qDebug()<<regExpLon.cap(1)<<regExpLon.cap(2)<<"reg";//.toDouble()+regExpLat.cap(2).toDouble()/60<<regExpLon.cap(1).toDouble()+regExpLon.cap(2).toDouble()/60;
-                tmpGals->addPoint(QPointF(regExpLat.cap(1).toDouble()+regExpLat.cap(2).toDouble()/60,regExpLon.cap(1).toDouble()+regExpLon.cap(2).toDouble()/60),strList[i+1]+strList[i+3]);// if degree.min
+                tmpGals->addPoint(QPointF(regExpLon.cap(1).toDouble()+regExpLon.cap(2).toDouble()/60,regExpLat.cap(1).toDouble()+regExpLat.cap(2).toDouble()/60),strList[i+1]+strList[i+3]);// if degree.min
                 //tmpGals->addPoint(QPointF(strList[i].toDouble(),strList[i+2].toDouble()),strList[i+1]+strList[i+3]); //if degree
             }
             gals->append(tmpGals);

@@ -55,14 +55,14 @@ QRectF ShipItem::boundingRect() const
 void ShipItem::setPosition(double latitude,double longitude,QString PJ)
 {
     m_PJ = PJ;
-    if(m_PJ[0] == 'N')
-        m_x = latitude * m_scale;
-    else
-        m_x = -latitude * m_scale;
-    if(m_PJ[1] == 'E')
-        m_y = longitude * m_scale;
-    else
-        m_y = -longitude * m_scale;
+    if(m_PJ[1] == 'N')
+        m_y = latitude * m_scale;
+    if(m_PJ[1]=='S')
+        m_y = -latitude * m_scale;
+    if(m_PJ[0] == 'E')
+        m_x = longitude * m_scale;
+    if(m_PJ[0] == 'W')
+        m_x = -longitude * m_scale;
         qDebug()<<m_x<<m_y<<"ship coords";
      m_boundrect.setRect(m_x-10,-m_y-30,20,60);
 }

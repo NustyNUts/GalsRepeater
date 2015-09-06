@@ -84,8 +84,8 @@ void Widget::setShipCoords()
     latFracPart = (m_logic->ship->getLatitude()-latInt)*60;
     lonInt = m_logic->ship->getLongitude();
     lonFracPart = (m_logic->ship->getLongitude()-lonInt)*60;
-    ui->latLabel->setText(QString::number(latInt)+","+QString::number(latFracPart,'f',5));
-    ui->lonLabel->setText(QString::number(lonInt)+","+QString::number(lonFracPart,'f',5));
+    ui->latLabel->setText(QString::number(latInt)+","+QString::number(latFracPart,'f',5)+m_logic->ship->getPJ()[1]);
+    ui->lonLabel->setText(QString::number(lonInt)+","+QString::number(lonFracPart,'f',5)+m_logic->ship->getPJ()[0]);
     ui->gpsTimeLabel->setText(m_logic->getGpsTime());
 
 
@@ -96,10 +96,11 @@ void Widget::setShipCoords()
     ui->graphicsView->centerOn(m_shipItem);
     m_scene->update(m_shipItem->boundingRect());
 
-    m_scene->removeItem(m_shiptail);
-    m_shiptail->addPoint(QPointF(m_logic->ship->getLatitude(),m_logic->ship->getLongitude()));
-    m_scene->addItem(m_shiptail);
-    m_scene->update(m_shiptail->boundingRect());
+//    m_scene->removeItem(m_shiptail);
+//    m_shiptail->addPoint(QPointF(m_logic->ship->getLatitude(),m_logic->ship->getLongitude()));
+//    m_scene->addItem(m_shiptail);
+//    m_scene->update(m_shiptail->boundingRect());
+
     m_scene->removeItem(m_gridItem);
     m_gridItem->setShipCoords(m_shipItem->getX(),m_shipItem->getY(),m_logic->ship->getPJ());
     m_scene->addItem(m_gridItem);
@@ -170,7 +171,7 @@ void Widget::on_comboBox_currentIndexChanged(int index)
     m_galsItem->setGals(m_logic->gals);
     m_scene->addItem(m_galsItem);
     m_scene->update(m_galsItem->boundingRect());
-
+    //ui->graphicsView->centerOn(m_galsItem);
     m_scene->update();
 
 }

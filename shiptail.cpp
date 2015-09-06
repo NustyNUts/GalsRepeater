@@ -24,7 +24,7 @@ void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawLine(x,-y,x1,-y1);
 
         }
-    painter->drawRect(m_boundRect);
+   // painter->drawRect(m_boundRect);
 }
 
 void ShipTail::addPoint(QPointF point)

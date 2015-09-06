@@ -2,7 +2,7 @@
 
 GridItem::GridItem():
     m_scale(500000),
-    m_shipX(7),
+    m_shipX(0),
     m_shipY(0)
 {
 }
@@ -26,11 +26,14 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             QChar tmpP;
 
             if(i<0)
-                tmpP = 'S';
+                tmpP = 'W';
             else
-                tmpP = 'N';
-            painter->drawText(i,-m_shipY-200,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpP);
-            painter->drawText(i,-m_shipY+220,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpP);
+                tmpP = 'E';
+            QStaticText* text= new QStaticText;
+            text->setText(QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpP);
+            painter->drawStaticText(i,-m_shipY-200,*text);
+            painter->drawStaticText(i,-m_shipY+220,*text);
+            delete text;
             painter->setPen("black");
         }
     }
@@ -45,15 +48,22 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
         {
             QChar tmpJ;
             if(i<0)
-                tmpJ = 'W';
+                tmpJ = 'S';
             else
-                tmpJ = 'E';
+                tmpJ = 'N';
+            QStaticText* text= new QStaticText;
+            text->setText(QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
             painter->setPen(QColor("#F7BC22"));
-            painter->drawText(m_shipX-360,-i+20,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
-            painter->drawText(m_shipX+320,-i+20,QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
+            painter->drawStaticText(m_shipX-360,-i+5,*text);
+            painter->drawStaticText(m_shipX+320,-i+5,*text);
             painter->setPen("black");
+            delete text;
         }
     }
+    painter->setPen(QColor("red"));
+    painter->drawRect(QRectF(m_shipX-1000, -m_shipY-1000,
+                             2000, 2000));
+    painter->setPen("black");
 }
 
 QRectF GridItem::boundingRect() const

@@ -2,7 +2,7 @@
 #include "client.h"
 
 Client::Client():
-    m_hostAddr("192.168.1.25"),
+    m_hostAddr("172.16.10.29"),
     m_hostPort(12345)
 {
     m_soket = new QTcpSocket();
@@ -16,7 +16,7 @@ Client::Client():
     connect(m_soket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     //connect(m_soket,SIGNAL(hostFound()),this,SLOT(connected()));
 
-    m_timer->start(100);
+    m_timer->start(1000);
     m_timerCheckData->start(105);
 
 }
