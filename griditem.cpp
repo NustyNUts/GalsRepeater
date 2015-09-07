@@ -31,8 +31,8 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 tmpP = 'E';
             QStaticText* text= new QStaticText;
             text->setText(QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpP);
-            painter->drawStaticText(i,-m_shipY-200,*text);
-            painter->drawStaticText(i,-m_shipY+220,*text);
+            painter->drawStaticText(i,-m_shipY-215,*text);
+            painter->drawStaticText(i,-m_shipY+205,*text);
             delete text;
             painter->setPen("black");
         }
@@ -54,7 +54,7 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             QStaticText* text= new QStaticText;
             text->setText(QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
             painter->setPen(QColor("#F7BC22"));
-            painter->drawStaticText(m_shipX-360,-i+5,*text);
+            painter->drawStaticText(m_shipX-360,-i-5,*text);
             painter->drawStaticText(m_shipX+320,-i+5,*text);
             painter->setPen("black");
             delete text;

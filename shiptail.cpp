@@ -8,11 +8,12 @@ ShipTail::ShipTail()
     m_minY=INT_MAX;
     m_maxX=INT_MIN;
     m_maxY=INT_MIN;
+
 }
 void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                          QWidget *widget)
 {
-    painter->setPen(QPen(QBrush("#890C06"),1.0));
+    painter->setPen(QPen(QBrush("#B7A110"),1.0));
     if(m_shipTail->size()>=2)
         for(int i=1;i<m_shipTail->size();i++)
         {
@@ -22,27 +23,35 @@ void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             x1=m_shipTail->value(i).rx()*m_scale;
             y1=m_shipTail->value(i).ry()*m_scale;
             painter->drawLine(x,-y,x1,-y1);
+            painter->drawRect(m_boundRect);
 
         }
    // painter->drawRect(m_boundRect);
 }
 
-void ShipTail::addPoint(QPointF point)
+void ShipTail::addPoint(double lat,double lon,QString PJ)
 {
-    if(point.rx()*m_scale<m_minX)
-        m_minX = point.rx()*m_scale;
-    if(point.rx()*m_scale>m_maxX)
-        m_maxX = point.rx()*m_scale;
-    if(point.ry()*m_scale<m_minY)
-        m_minY = point.ry()*m_scale;
-    if(point.ry()*m_scale>m_maxY)
-        m_maxY = point.ry()*m_scale;
-    m_boundRect = QRect(m_minX-5,-m_maxY,m_maxX-m_minX+5,m_maxY-m_minY+5);
-    if(m_shipTail->size()<=100)
-        m_shipTail->push_front(point);
-    else
-    {
-        m_shipTail->removeLast();
-        m_shipTail->push_front(point);
-    }
+    QPointF tmpPoint;
+    double x,y;
+    if(PJ[1] == 'N')
+        y = lat;
+    if(PJ[1] == 'S')
+        y = -lat;
+    if(PJ[0] == 'E')
+        x = lon;
+    if(PJ[0] == 'W')
+        x = -lon;
+    if(x<m_minX)
+        m_minX = x;
+    if(x>m_maxX)
+        m_maxX = x;
+    if(y<m_minY)
+        m_minY = y;
+    if(y>m_maxY)
+        m_maxY = y;
+    tmpPoint.setX(x);
+    tmpPoint.setY(y);
+    m_boundRect.setRect(m_minX,-m_minY,m_maxX-m_minX,m_maxY-m_minY);
+    qDebug()<<m_boundRect;
+    m_shipTail->append(tmpPoint);
 }

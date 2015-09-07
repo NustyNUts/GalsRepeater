@@ -9,12 +9,12 @@
 class ShipTail : public QGraphicsItem
 {
     QVector<QPointF>* m_shipTail;
-    QRect m_boundRect;
+    QRectF m_boundRect;
     int m_scale;
-    int m_minX;
-    int m_maxX;
-    int m_maxY;
-    int m_minY;
+    double m_minX;
+    double m_maxX;
+    double m_maxY;
+    double m_minY;
 public:
     ShipTail();
 
@@ -22,9 +22,9 @@ public:
                QWidget *widget);
     QRectF boundingRect() const
     {
-        return m_boundRect;
+        return QRectF(m_minX*m_scale,-m_minY*m_scale,m_maxX*m_scale-m_minX*m_scale,m_maxY*m_scale-m_minY*m_scale);
     }
-    void addPoint(QPointF point);
+    void addPoint(double lat,double lon, QString PJ);
 
 };
 

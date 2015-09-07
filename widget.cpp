@@ -17,17 +17,24 @@ Widget::Widget(QWidget *parent) :
     ui->setupUi(this);
     //ui->graphicsView->setScene(m_scene);
     ui->graphicsView->setScene(m_sceneCap);
+    ui->comboBox->addItem("1:1 000");
+    ui->comboBox->addItem("1:10 000");
+    ui->comboBox->addItem("1:20 000");
+    ui->comboBox->addItem("1:40 000");
+    ui->comboBox->addItem("1:60 000");
+    ui->comboBox->addItem("1:80 000");
     ui->comboBox->addItem("1:100 000");
+    ui->comboBox->addItem("1:120 000");
+    ui->comboBox->addItem("1:140 000");
+    ui->comboBox->addItem("1:160 000");
+    ui->comboBox->addItem("1:180 000");
     ui->comboBox->addItem("1:200 000");
+    ui->comboBox->addItem("1:220 000");
+    ui->comboBox->addItem("1:240 000");
+    ui->comboBox->addItem("1:260 000");
+    ui->comboBox->addItem("1:280 000");
     ui->comboBox->addItem("1:300 000");
-    ui->comboBox->addItem("1:400 000");
-    ui->comboBox->addItem("1:500 000");
-    ui->comboBox->addItem("1:600 000");
-    ui->comboBox->addItem("1:700 000");
-    ui->comboBox->addItem("1:800 000");
-    ui->comboBox->addItem("1:900 000");
-    ui->comboBox->addItem("1:1 000 000");
-    ui->comboBox->setCurrentIndex(4);
+    ui->comboBox->setCurrentIndex(6);
     m_scale = 500000;
     m_scene->setBackgroundBrush(QColor("#0A7AF5"));
     m_sceneCap->setBackgroundBrush(QColor("#0A7AF5"));
@@ -96,10 +103,10 @@ void Widget::setShipCoords()
     ui->graphicsView->centerOn(m_shipItem);
     m_scene->update(m_shipItem->boundingRect());
 
-//    m_scene->removeItem(m_shiptail);
-//    m_shiptail->addPoint(QPointF(m_logic->ship->getLatitude(),m_logic->ship->getLongitude()));
-//    m_scene->addItem(m_shiptail);
-//    m_scene->update(m_shiptail->boundingRect());
+    m_scene->removeItem(m_shiptail);
+    m_shiptail->addPoint(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ() );
+    m_scene->addItem(m_shiptail);
+    m_scene->update(m_shiptail->boundingRect());
 
     m_scene->removeItem(m_gridItem);
     m_gridItem->setShipCoords(m_shipItem->getX(),m_shipItem->getY(),m_logic->ship->getPJ());
@@ -153,7 +160,11 @@ void Widget::on_pushButton_clicked()
 
 void Widget::on_comboBox_currentIndexChanged(int index)
 {
-    m_scale = (index+1) * 100000;
+    if(index == 0)
+        m_scale = 1000;
+    else
+        m_scale = (index+1) * 10000;
+
     m_shipItem->setScale(m_scale);
     m_scene->removeItem(m_shipItem);
     m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ());

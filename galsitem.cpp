@@ -14,7 +14,7 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
            QWidget *widget)
 {
     double x,y,x1,y1;
-    painter->setPen(QPen(QBrush("#890C06"),1.5));
+    painter->setPen(QPen(QBrush("#F7BC22"),1.5));
     for(int i=0;i<m_gals->size();i++)
     {
         QVector<QString>* tmpPJ;
