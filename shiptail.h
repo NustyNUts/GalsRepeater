@@ -22,9 +22,14 @@ public:
                QWidget *widget);
     QRectF boundingRect() const
     {
-        return QRectF(m_minX*m_scale,-m_minY*m_scale,m_maxX*m_scale-m_minX*m_scale,m_maxY*m_scale-m_minY*m_scale);
+        qDebug()<<QRectF(m_minX*m_scale-10,m_minY*m_scale-10,m_maxX*m_scale-m_minX*m_scale+20,m_maxY*m_scale-m_minY*m_scale+20);
+        return QRectF(m_minX*m_scale-10,m_minY*m_scale-10,m_maxX*m_scale-m_minX*m_scale+20,m_maxY*m_scale-m_minY*m_scale+20);
     }
     void addPoint(double lat,double lon, QString PJ);
+    void setScale(double scale)
+    {
+        m_scale = scale;
+    }
 
 };
 

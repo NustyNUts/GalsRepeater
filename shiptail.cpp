@@ -3,7 +3,7 @@
 ShipTail::ShipTail()
 {
     m_shipTail = new QVector<QPointF>;
-    m_scale = 500000;
+    m_scale = 20000;
     m_minX=INT_MAX;
     m_minY=INT_MAX;
     m_maxX=INT_MIN;
@@ -13,7 +13,7 @@ ShipTail::ShipTail()
 void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                          QWidget *widget)
 {
-    painter->setPen(QPen(QBrush("#B7A110"),1.0));
+    painter->setPen(QPen(QBrush("#B7A110"),1.5));
     if(m_shipTail->size()>=2)
         for(int i=1;i<m_shipTail->size();i++)
         {
@@ -23,10 +23,7 @@ void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             x1=m_shipTail->value(i).rx()*m_scale;
             y1=m_shipTail->value(i).ry()*m_scale;
             painter->drawLine(x,-y,x1,-y1);
-            painter->drawRect(m_boundRect);
-
         }
-   // painter->drawRect(m_boundRect);
 }
 
 void ShipTail::addPoint(double lat,double lon,QString PJ)
@@ -51,7 +48,6 @@ void ShipTail::addPoint(double lat,double lon,QString PJ)
         m_maxY = y;
     tmpPoint.setX(x);
     tmpPoint.setY(y);
-    m_boundRect.setRect(m_minX,-m_minY,m_maxX-m_minX,m_maxY-m_minY);
-    qDebug()<<m_boundRect;
+    m_boundRect.setRect(m_minX,-m_maxY,m_maxX-m_minX,m_maxY-m_minY);
     m_shipTail->append(tmpPoint);
 }

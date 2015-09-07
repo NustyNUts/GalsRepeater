@@ -6,7 +6,7 @@ Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
-    m_scale = 1000000;
+    m_scale = 20000;
     m_scene = new QGraphicsScene(-180*m_scale,-90*m_scale,180*m_scale*2,90*m_scale*2);
     m_sceneCap = new QGraphicsScene();
     m_gridItem = new GridItem();
@@ -18,6 +18,10 @@ Widget::Widget(QWidget *parent) :
     //ui->graphicsView->setScene(m_scene);
     ui->graphicsView->setScene(m_sceneCap);
     ui->comboBox->addItem("1:1 000");
+    ui->comboBox->addItem("1:2 000");
+    ui->comboBox->addItem("1:4 000");
+    ui->comboBox->addItem("1:6 000");
+    ui->comboBox->addItem("1:8 000");
     ui->comboBox->addItem("1:10 000");
     ui->comboBox->addItem("1:20 000");
     ui->comboBox->addItem("1:40 000");
@@ -35,7 +39,6 @@ Widget::Widget(QWidget *parent) :
     ui->comboBox->addItem("1:280 000");
     ui->comboBox->addItem("1:300 000");
     ui->comboBox->setCurrentIndex(6);
-    m_scale = 500000;
     m_scene->setBackgroundBrush(QColor("#0A7AF5"));
     m_sceneCap->setBackgroundBrush(QColor("#0A7AF5"));
     m_scene->addItem(m_shipItem);
@@ -45,6 +48,7 @@ Widget::Widget(QWidget *parent) :
     ui->graphicsView->centerOn(m_shipItem);
     m_shipItem->setScale(m_scale);
     m_galsItem->setScale(m_scale);
+    m_shiptail->setScale(m_scale);
     m_scene->update(m_shipItem->boundingRect());
     m_scene->update(m_gridItem->boundingRect());
     m_scene->update(m_galsItem->boundingRect());
@@ -104,7 +108,7 @@ void Widget::setShipCoords()
     m_scene->update(m_shipItem->boundingRect());
 
     m_scene->removeItem(m_shiptail);
-    m_shiptail->addPoint(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ() );
+    m_shiptail->addPoint(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ());
     m_scene->addItem(m_shiptail);
     m_scene->update(m_shiptail->boundingRect());
 
@@ -160,11 +164,7 @@ void Widget::on_pushButton_clicked()
 
 void Widget::on_comboBox_currentIndexChanged(int index)
 {
-    if(index == 0)
-        m_scale = 1000;
-    else
-        m_scale = (index+1) * 10000;
-
+    m_scale = ui->comboBox->currentText().split(':')[1].remove(' ').toInt();
     m_shipItem->setScale(m_scale);
     m_scene->removeItem(m_shipItem);
     m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ());
@@ -182,7 +182,12 @@ void Widget::on_comboBox_currentIndexChanged(int index)
     m_galsItem->setGals(m_logic->gals);
     m_scene->addItem(m_galsItem);
     m_scene->update(m_galsItem->boundingRect());
-    //ui->graphicsView->centerOn(m_galsItem);
     m_scene->update();
+
+    m_scene->removeItem(m_shiptail);
+    m_shiptail->setScale(m_scale);
+    m_scene->addItem(m_shiptail);
+    m_scene->update(m_shiptail->boundingRect());
+
 
 }

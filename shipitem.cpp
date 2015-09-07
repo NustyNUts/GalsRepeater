@@ -3,7 +3,7 @@
 ShipItem::ShipItem() :
     m_x(-1000),
     m_y(1000),
-    m_scale(500000.0),
+    m_scale(20000.0),
     m_angle(0)
 {
 }
@@ -34,7 +34,16 @@ void ShipItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawEllipse(m_x-k/2,-m_y-k/2,k,k);
     painter->drawLine(m_x-k/2,-m_y,m_x+k/2,-m_y);
     painter->drawLine(m_x,-m_y-k/2,m_x,-m_y+k/2);
+    double angle,angle1;
+    double z;
+    int j;
 
+        angle = (m_angle-90)*(M_PI/180);
+        angle1 = (m_angle+90)*(M_PI/180);
+        painter->drawLine(m_x,-m_y,m_x + cos(-angle)*30,-m_y-sin(-angle)*30);
+        painter->drawLine(m_x,-m_y,m_x + cos(-angle1)*30,-m_y-sin(-angle1)*30);
+        painter->drawLine(m_x + cos(-angle)*30,-m_y-sin(-angle)*30,m_x + cos(-angle-M_PI/6)*15,-m_y-sin(-angle-M_PI/6)*15);
+        painter->drawLine(m_x + cos(-angle)*30,-m_y-sin(-angle)*30,m_x + cos(-angle+M_PI/6)*15,-m_y-sin(-angle+M_PI/6)*15);
 
 //    painter->drawLine(m_x,-m_y,m_x,-m_y-30);
 //    painter->drawLine(m_x,-m_y-30,m_x-k/2,-m_y-k/1.2);

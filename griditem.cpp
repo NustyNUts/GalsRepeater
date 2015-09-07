@@ -1,7 +1,7 @@
 #include "griditem.h"
 
 GridItem::GridItem():
-    m_scale(500000),
+    m_scale(20000),
     m_shipX(0),
     m_shipY(0)
 {
