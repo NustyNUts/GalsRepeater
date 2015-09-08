@@ -35,9 +35,6 @@ void ShipItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     painter->drawLine(m_x-k/2,-m_y,m_x+k/2,-m_y);
     painter->drawLine(m_x,-m_y-k/2,m_x,-m_y+k/2);
     double angle,angle1;
-    double z;
-    int j;
-
         angle = (m_angle-90)*(M_PI/180);
         angle1 = (m_angle+90)*(M_PI/180);
         painter->drawLine(m_x,-m_y,m_x + cos(-angle)*30,-m_y-sin(-angle)*30);

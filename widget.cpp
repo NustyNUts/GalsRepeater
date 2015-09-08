@@ -48,7 +48,7 @@ Widget::Widget(QWidget *parent) :
     ui->graphicsView->centerOn(m_shipItem);
     m_shipItem->setScale(m_scale);
     m_galsItem->setScale(m_scale);
-    m_shiptail->setScale(m_scale);
+    m_shiptail->setTailScale(m_scale);
     m_scene->update(m_shipItem->boundingRect());
     m_scene->update(m_gridItem->boundingRect());
     m_scene->update(m_galsItem->boundingRect());
@@ -185,7 +185,7 @@ void Widget::on_comboBox_currentIndexChanged(int index)
     m_scene->update();
 
     m_scene->removeItem(m_shiptail);
-    m_shiptail->setScale(m_scale);
+    m_shiptail->setTailScale(m_scale);
     m_scene->addItem(m_shiptail);
     m_scene->update(m_shiptail->boundingRect());
 

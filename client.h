@@ -7,12 +7,14 @@
 #include <QObject>
 #include <QString>
 #include <QTcpSocket>
+#include <QTcpServer>
 #include <QTimer>
 
 class Client : public QObject
 {
     Q_OBJECT
 private:
+    QTcpServer* m_server;
     QTcpSocket* m_soket;
     QString m_hostAddr;
     qint16 m_hostPort;
@@ -28,6 +30,7 @@ public slots:
     void readHostMessage();
     void disconnected();
     void noData();
+    void newConnect();
 signals:
     void messageFormed(QString msg);
     void readFail(QString msg);

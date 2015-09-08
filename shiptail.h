@@ -22,11 +22,11 @@ public:
                QWidget *widget);
     QRectF boundingRect() const
     {
-        qDebug()<<QRectF(m_minX*m_scale-10,m_minY*m_scale-10,m_maxX*m_scale-m_minX*m_scale+20,m_maxY*m_scale-m_minY*m_scale+20);
-        return QRectF(m_minX*m_scale-10,m_minY*m_scale-10,m_maxX*m_scale-m_minX*m_scale+20,m_maxY*m_scale-m_minY*m_scale+20);
+        //qDebug()<<QRectF(m_minX*m_scale-10,m_minY*m_scale-10,m_maxX*m_scale-m_minX*m_scale+20,m_maxY*m_scale-m_minY*m_scale+20);
+        return QRectF(m_minX*m_scale-10,-m_maxY*m_scale-10,m_maxX*m_scale-m_minX*m_scale+20,m_maxY*m_scale-m_minY*m_scale+20);
     }
     void addPoint(double lat,double lon, QString PJ);
-    void setScale(double scale)
+    void setTailScale(double scale)
     {
         m_scale = scale;
     }

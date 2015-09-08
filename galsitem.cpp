@@ -85,6 +85,5 @@ void GalsItem::setGals(QVector<Gals *>* gals)
 }
 QRectF GalsItem::boundingRect() const
 {
-    //qDebug()<<m_boundRect<<"gals bound";
     return m_boundRect;
 }

@@ -24,6 +24,7 @@ void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             y1=m_shipTail->value(i).ry()*m_scale;
             painter->drawLine(x,-y,x1,-y1);
         }
+    painter->drawRect(QRectF(m_minX*m_scale-10,-m_maxY*m_scale-10,m_maxX*m_scale-m_minX*m_scale+20,m_maxY*m_scale-m_minY*m_scale+20));
 }
 
 void ShipTail::addPoint(double lat,double lon,QString PJ)
@@ -48,6 +49,5 @@ void ShipTail::addPoint(double lat,double lon,QString PJ)
         m_maxY = y;
     tmpPoint.setX(x);
     tmpPoint.setY(y);
-    m_boundRect.setRect(m_minX,-m_maxY,m_maxX-m_minX,m_maxY-m_minY);
     m_shipTail->append(tmpPoint);
 }
