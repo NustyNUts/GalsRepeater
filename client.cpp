@@ -14,7 +14,7 @@ Client::Client():
     connect(m_timerCheckData,SIGNAL(timeout()),this,SLOT(noData()));
     connect(m_timer,SIGNAL(timeout()),this,SLOT(openConnection()));
     connect(m_soket,SIGNAL(connected()),this,SLOT(connected()));
-    connect(m_soket,SIGNAL(disconnected()),this,SLOT(disconnected()));
+    //connect(m_soket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     connect(m_server,SIGNAL(newConnection()),this,SLOT(newConnect()));
     m_server->listen(QHostAddress::Any,m_hostPort);
     m_timer->start(1000);
@@ -27,6 +27,7 @@ void Client::newConnect()
     m_soket = m_server->nextPendingConnection();
     m_connectState = true;
     connect(m_soket,SIGNAL(readyRead()),this,SLOT(readHostMessage()));
+    connect(m_soket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     m_timer->stop();
 }
 
@@ -65,6 +66,6 @@ void Client::disconnected()
     m_connectState = false;
     m_timerCheckData->stop();
     emit readFail("ПОДКЛЮЧЕНИЕ ОТСУТСТВУЕТ");
-    qDebug()<<"disconnected from host";
+    qDebug()<<"client disconnected";
     m_timer->start(100);
 }
