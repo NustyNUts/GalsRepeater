@@ -43,7 +43,7 @@ private slots:
 
 public slots:
     void setShipCoords();
-    void setGals();
+    void setGals(int checkGals);
     void noData(QString msg);
 
 private:

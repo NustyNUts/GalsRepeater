@@ -25,8 +25,9 @@ void Client::newConnect()
 {
     qDebug()<<"new connection";
     m_soket = m_server->nextPendingConnection();
+    m_connectState = true;
     connect(m_soket,SIGNAL(readyRead()),this,SLOT(readHostMessage()));
-    //m_timer->stop();
+    m_timer->stop();
 }
 
 void Client::noData()

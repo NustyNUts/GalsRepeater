@@ -39,6 +39,7 @@ Widget::Widget(QWidget *parent) :
     ui->comboBox->addItem("1:280 000");
     ui->comboBox->addItem("1:300 000");
     ui->comboBox->setCurrentIndex(6);
+    ui->labelGalsGet->setText("Галс отсутствует");
     m_scene->setBackgroundBrush(QColor("#0A7AF5"));
     m_sceneCap->setBackgroundBrush(QColor("#0A7AF5"));
     m_scene->addItem(m_shipItem);
@@ -53,7 +54,7 @@ Widget::Widget(QWidget *parent) :
     m_scene->update(m_gridItem->boundingRect());
     m_scene->update(m_galsItem->boundingRect());
     connect(m_logic,SIGNAL(updateShipPosition()),this,SLOT(setShipCoords()));
-    connect(m_logic,SIGNAL(updateGals()),this,SLOT(setGals()));
+    connect(m_logic,SIGNAL(updateGals(int)),this,SLOT(setGals(int)));
     connect(m_logic->client,SIGNAL(readFail(QString)),this,SLOT(noData(QString)));
 }
 void Widget::noData(QString msg)
@@ -125,8 +126,12 @@ void Widget::setShipCoords()
     m_scene->update(m_galsItem->boundingRect());
      m_scene->update();
 }
-void Widget::setGals()
+void Widget::setGals(int checkGals)
 {
+    if(checkGals==1)
+        ui->labelGalsGet->setText("Галс получен");
+    if(checkGals == 0)
+        ui->labelGalsGet->setText("Галс отсутствует");
     m_scene->removeItem(m_galsItem);
     m_galsItem->setGals(m_logic->gals);
     m_scene->addItem(m_galsItem);

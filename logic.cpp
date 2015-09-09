@@ -35,7 +35,7 @@ void Logic::getMsg(QString msg)
             if(strList[1] == "0")
             {
                 gals->clear();
-                emit updateGals();
+                emit updateGals(0);
                 return;
             }
             Gals* tmpGals= new Gals();
@@ -53,7 +53,7 @@ void Logic::getMsg(QString msg)
                 //tmpGals->addPoint(QPointF(strList[i].toDouble(),strList[i+2].toDouble()),strList[i+1]+strList[i+3]); //if degree
             }
             gals->append(tmpGals);
-            emit updateGals();
+            emit updateGals(1);
         }
     }
 

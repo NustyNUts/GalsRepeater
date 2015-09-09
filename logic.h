@@ -30,7 +30,7 @@ public:
 
 signals:
     void updateShipPosition();
-    void updateGals();
+    void updateGals(int i);
     void noData();
 public slots:
     void getMsg(QString msg);
