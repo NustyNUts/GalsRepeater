@@ -63,13 +63,14 @@ void Widget::noData(QString msg)
     static QGraphicsTextItem* textItem = new QGraphicsTextItem();
 
     m_sceneCap->removeItem(textItem);
-    textItem->setPos(ui->graphicsView->width()/2,ui->graphicsView->height()/2);
+    textItem->setPos(ui->graphicsView->width()/2+250,ui->graphicsView->height()/2);
     textItem->setTextWidth(300);
     textItem->setFont(QFont("Times New Roman",18,2));
     textItem->setDefaultTextColor(QColor("#AD1F1F"));
     textItem->setPlainText(msg);
+    m_scene->addRect(textItem->boundingRect());
     m_sceneCap->addItem(textItem);
-    ui->graphicsView->centerOn(textItem);
+    //ui->graphicsView->centerOn(textItem);
     m_sceneCap->update(textItem->boundingRect());
     ui->speedLabel->setText("");
     ui->courseLabel->setText("");
