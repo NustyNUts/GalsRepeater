@@ -11,6 +11,7 @@
 
 class GalsItem : public QGraphicsItem
 {
+    bool m_dayNight;
     int m_scale;
     QRectF m_boundRect;
     QVector<Gals*>* m_gals;
@@ -29,6 +30,10 @@ public:
         m_boundRect.setRect(minX*m_scale,minY*m_scale,maxX*m_scale-minX*m_scale,maxY*m_scale-minY*m_scale);
     }
     void  setGals(QVector<Gals*>* gals);
+    void setDayNight(bool DN)
+    {
+        m_dayNight = DN;
+    }
 };
 
 #endif // GALSITEM_H

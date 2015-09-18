@@ -8,6 +8,7 @@ ShipTail::ShipTail()
     m_minY=INT_MAX;
     m_maxX=INT_MIN;
     m_maxY=INT_MIN;
+    m_dayNight = true;
 
 }
 void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,

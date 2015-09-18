@@ -10,6 +10,7 @@
 
 class GridItem : public QGraphicsItem
 {
+    bool m_dayNight;
     int m_scale;
     int m_shipX;
     int m_shipY;
@@ -28,6 +29,10 @@ public:
         m_PJ = PJ;
         m_shipX = x;
         m_shipY = y;
+    }
+    void setDayNight(bool DN)
+    {
+        m_dayNight = DN;
     }
 };
 

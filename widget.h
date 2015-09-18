@@ -33,6 +33,7 @@ private:
     ShipTail* m_shiptail;
     ShipItem* m_shipItem;
     GalsItem* m_galsItem;
+    bool m_dayNight;
 
 public:
     explicit Widget(QWidget *parent = 0);

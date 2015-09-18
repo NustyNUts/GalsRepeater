@@ -5,6 +5,7 @@ GridItem::GridItem():
     m_shipX(0),
     m_shipY(0)
 {
+    m_dayNight = true;
 }
 
 
@@ -16,13 +17,19 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     double tmpFracPart;
     for(int i=((m_shipX-1000/2)/100)*100;i<((m_shipX+1000/2)/100)*100;i+=100)
     {
-        painter->setPen(QPen(QBrush("black"),0.2));
+        if(m_dayNight)
+            painter->setPen(QPen(QBrush("black"),0.2));
+        else if(!m_dayNight)
+            painter->setPen(QPen(QBrush("green"),0.2));
         painter->drawLine(i,-m_shipY+600/2,i,-m_shipY-600/2);
         tmpInt = (i/m_scale);
         tmpFracPart = ((i/(double)m_scale) - tmpInt )*60.0;
         if(i>m_shipX-700/2&&i<m_shipX+700)
         {
-            painter->setPen(QColor("#F7BC22"));
+            if(m_dayNight)
+                painter->setPen(QPen(QBrush("#F7BC22"),0.2));
+            else if(!m_dayNight)
+                painter->setPen(QPen(QBrush("green"),0.2));
             QChar tmpP;
 
             if(i<0)
@@ -40,7 +47,10 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
     for(int i=((m_shipY-700/2)/100)*100;i<((m_shipY+700/2)/100)*100;i+=100)
     {
-        painter->setPen(QPen(QBrush("black"),0.2));
+        if(m_dayNight)
+            painter->setPen(QPen(QBrush("black"),0.2));
+        else if(!m_dayNight)
+            painter->setPen(QPen(QBrush("green"),0.2));
         painter->drawLine(((m_shipX-1000/2)/100)*100,-i,((m_shipX+1000/2)/100)*100,-i);
         tmpInt = (i/m_scale);
         tmpFracPart = ((i/(double)m_scale) - tmpInt )*60.0;
@@ -53,7 +63,10 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 tmpJ = 'N';
             QStaticText* text= new QStaticText;
             text->setText(QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
-            painter->setPen(QColor("#F7BC22"));
+            if(m_dayNight)
+                painter->setPen(QPen(QBrush("#F7BC22"),0.2));
+            else if(!m_dayNight)
+                painter->setPen(QPen(QBrush("green"),0.2));
             painter->drawStaticText(m_shipX-360,-i-5,*text);
             painter->drawStaticText(m_shipX+320,-i+5,*text);
             painter->setPen("black");

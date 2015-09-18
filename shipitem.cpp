@@ -6,6 +6,7 @@ ShipItem::ShipItem() :
     m_scale(20000.0),
     m_angle(0)
 {
+    m_dayNight = true;
 }
 
 void ShipItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
@@ -17,7 +18,10 @@ void ShipItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 //    double angle;
 //    angle =45;
 //    angle=angle*(M_PI/180);
-    painter->setPen(QPen(QBrush("#890C06"),2.0));
+    if(m_dayNight)
+        painter->setPen(QPen(QBrush("#890C06"),2.0));
+    else if(~m_dayNight)
+        painter->setPen(QPen(QBrush("green"),2.0));/*#CA4B0C*/
 //    painter->save();
 //    qDebug()<<m_x<<m_y<<"m_x and m_y";
 //   // painter->drawRect(m_x-k/2,-m_y-k/2,k,k);

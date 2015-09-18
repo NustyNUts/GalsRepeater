@@ -8,6 +8,7 @@
 
 class ShipItem : public QGraphicsItem
 {
+    bool m_dayNight;
     double m_x;
     double m_y;
     double m_lat;
@@ -35,6 +36,10 @@ public:
     void setCourse(double course)
     {
         m_angle = course;
+    }
+    void setDayNight(bool DN)
+    {
+        m_dayNight = DN;
     }
 };
 

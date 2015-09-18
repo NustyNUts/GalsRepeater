@@ -6,7 +6,7 @@ Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
-    m_scale = 20000;
+    m_scale = 400000;
     m_scene = new QGraphicsScene(-180*m_scale,-90*m_scale,180*m_scale*2,90*m_scale*2);
     m_sceneCap = new QGraphicsScene();
     m_gridItem = new GridItem();
@@ -14,9 +14,10 @@ Widget::Widget(QWidget *parent) :
     m_galsItem = new GalsItem();
     m_shiptail = new ShipTail();
     m_logic = new Logic();
+    m_dayNight = true;//true -day, false-night;
     ui->setupUi(this);
     //ui->graphicsView->setScene(m_scene);
-    ui->graphicsView->setScene(m_sceneCap);
+    ui->graphicsView->setScene(m_scene);
     ui->comboBox->addItem("1:1 000");
     ui->comboBox->addItem("1:2 000");
     ui->comboBox->addItem("1:4 000");
@@ -40,8 +41,16 @@ Widget::Widget(QWidget *parent) :
     ui->comboBox->addItem("1:300 000");
     ui->comboBox->setCurrentIndex(6);
     ui->labelGalsGet->setText("Галс отсутствует");
-    m_scene->setBackgroundBrush(QColor("#0A7AF5"));
-    m_sceneCap->setBackgroundBrush(QColor("#0A7AF5"));
+    if(m_dayNight)
+    {
+        m_scene->setBackgroundBrush(QColor("#0A7AF5"));
+        m_sceneCap->setBackgroundBrush(QColor("#0A7AF5"));
+    }
+    else if(!m_dayNight)
+    {
+        m_scene->setBackgroundBrush(QColor("#2D3839"));
+        m_sceneCap->setBackgroundBrush(QColor("#2D3839"));
+    }
     m_scene->addItem(m_shipItem);
     m_scene->addItem(m_gridItem);
     m_scene->addItem(m_galsItem);
@@ -56,6 +65,13 @@ Widget::Widget(QWidget *parent) :
     connect(m_logic,SIGNAL(updateShipPosition()),this,SLOT(setShipCoords()));
     connect(m_logic,SIGNAL(updateGals(int)),this,SLOT(setGals(int)));
     connect(m_logic->client,SIGNAL(readFail(QString)),this,SLOT(noData(QString)));
+    QPalette Pal(palette());
+
+    // set black background
+    Pal.setColor(QPalette::Background, QColor("#DCE4E5"));
+    setAutoFillBackground(true);
+    setPalette(Pal);
+
 }
 void Widget::noData(QString msg)
 {
@@ -63,12 +79,12 @@ void Widget::noData(QString msg)
     static QGraphicsTextItem* textItem = new QGraphicsTextItem();
 
     m_sceneCap->removeItem(textItem);
-    textItem->setPos(ui->graphicsView->width()/2+250,ui->graphicsView->height()/2);
+    textItem->setPos(ui->graphicsView->width()/2+250,-ui->graphicsView->height()/2);
     textItem->setTextWidth(300);
     textItem->setFont(QFont("Times New Roman",18,2));
     textItem->setDefaultTextColor(QColor("#AD1F1F"));
     textItem->setPlainText(msg);
-    m_scene->addRect(textItem->boundingRect());
+    //m_sceneCap->addRect(textItem->boundingRect());
     m_sceneCap->addItem(textItem);
     //ui->graphicsView->centerOn(textItem);
     m_sceneCap->update(textItem->boundingRect());
@@ -77,6 +93,7 @@ void Widget::noData(QString msg)
     ui->latLabel->setText("");
     ui->lonLabel->setText("");
     ui->gpsTimeLabel->setText("");
+
 }
 
 Widget::~Widget()
@@ -97,8 +114,8 @@ void Widget::setShipCoords()
     latFracPart = (m_logic->ship->getLatitude()-latInt)*60;
     lonInt = m_logic->ship->getLongitude();
     lonFracPart = (m_logic->ship->getLongitude()-lonInt)*60;
-    ui->latLabel->setText(QString::number(latInt)+","+QString::number(latFracPart,'f',5)+m_logic->ship->getPJ()[1]);
-    ui->lonLabel->setText(QString::number(lonInt)+","+QString::number(lonFracPart,'f',5)+m_logic->ship->getPJ()[0]);
+    ui->latLabel->setText(QString::number(latInt)+"°"+QString::number(latFracPart,'f',3)+"'"+m_logic->ship->getPJ()[1]);
+    ui->lonLabel->setText(QString::number(lonInt)+"°"+QString::number(lonFracPart,'f',3)+"'"+m_logic->ship->getPJ()[0]);
     ui->gpsTimeLabel->setText(m_logic->getGpsTime());
 
 
@@ -138,6 +155,7 @@ void Widget::setGals(int checkGals)
     m_scene->addItem(m_galsItem);
     m_scene->update(m_galsItem->boundingRect());
     m_scene->update();
+
 }
 
 //$GPRMC,hhmmss.sss,A,GGMM.MM,P,gggmm.mm,J,v.v,b.b,ddmmyy,x.x,n,m*hh<CR><LF>
@@ -166,6 +184,31 @@ void Widget::setGals(int checkGals)
 
 void Widget::on_pushButton_clicked()
 {
+    QPalette Pal(palette());
+    QPalette PalCombo(ui->comboBox->palette());
+    m_dayNight = !m_dayNight;
+    m_shipItem->setDayNight(m_dayNight);
+    m_galsItem->setDayNight(m_dayNight);
+    m_gridItem->setDayNight(m_dayNight);
+    if(m_dayNight)
+    {
+        m_scene->setBackgroundBrush(QColor("#0A7AF5"));
+        m_sceneCap->setBackgroundBrush(QColor("#0A7AF5"));
+        ui->pushButton->setText("День");
+        Pal.setColor(QPalette::Background, QColor("#DCE4E5"));
+        Pal.setColor(QPalette::WindowText,Qt::black);
+        setPalette(Pal);
+    }
+    else if(!m_dayNight)
+    {
+        m_scene->setBackgroundBrush(QColor("#2D3839"));
+        m_sceneCap->setBackgroundBrush(QColor("#2D3839"));
+        ui->pushButton->setText("Ночь");
+        Pal.setColor(QPalette::Background, QColor("#556668"));
+        Pal.setColor(QPalette::WindowText,Qt::green);
+        setPalette(Pal);
+    }
+    m_scene->update();
 }
 
 void Widget::on_comboBox_currentIndexChanged(int index)

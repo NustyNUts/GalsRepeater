@@ -15,6 +15,7 @@ class ShipTail : public QGraphicsItem
     double m_maxX;
     double m_maxY;
     double m_minY;
+    bool m_dayNight;
 public:
     ShipTail();
 
