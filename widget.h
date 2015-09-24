@@ -26,6 +26,7 @@ class Widget : public QWidget
     Q_OBJECT
 private:
     int m_scale;
+    QString planeName;
     GridItem* m_gridItem;
     QGraphicsScene* m_scene;
     QGraphicsScene* m_sceneCap;
@@ -46,6 +47,9 @@ public slots:
     void setShipCoords();
     void setGals(int checkGals);
     void noData(QString msg);
+    void setPlaneName(QString str);
+
+
 
 private:
     Ui::Widget *ui;

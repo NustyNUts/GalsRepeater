@@ -37,7 +37,7 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             else
                 tmpP = 'E';
             QStaticText* text= new QStaticText;
-            text->setText(QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpP);
+            text->setText(QString::number(abs(tmpInt))+"°"+QString::number(fabs(tmpFracPart),'f',3)+tmpP+"'");
             painter->drawStaticText(i,-m_shipY-215,*text);
             painter->drawStaticText(i,-m_shipY+205,*text);
             delete text;
@@ -62,7 +62,7 @@ void GridItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             else
                 tmpJ = 'N';
             QStaticText* text= new QStaticText;
-            text->setText(QString::number(abs(tmpInt))+","+QString::number(fabs(tmpFracPart),'f',3)+tmpJ);
+            text->setText(QString::number(abs(tmpInt))+"°"+QString::number(fabs(tmpFracPart),'f',3)+tmpJ+"'");
             if(m_dayNight)
                 painter->setPen(QPen(QBrush("#F7BC22"),0.2));
             else if(!m_dayNight)

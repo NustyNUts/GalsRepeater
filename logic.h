@@ -32,6 +32,7 @@ signals:
     void updateShipPosition();
     void updateGals(int i);
     void noData();
+    void setPlaneName(QString);
 public slots:
     void getMsg(QString msg);
 

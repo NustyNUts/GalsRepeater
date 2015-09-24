@@ -14,7 +14,7 @@ ShipTail::ShipTail()
 void ShipTail::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                          QWidget *widget)
 {
-    painter->setPen(QPen(QBrush("#B7A110"),1.5));
+    painter->setPen(QPen(QBrush("#4AB54B"),1.5));
     if(m_shipTail->size()>=2)
         for(int i=1;i<m_shipTail->size();i++)
         {

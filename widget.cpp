@@ -65,6 +65,7 @@ Widget::Widget(QWidget *parent) :
     connect(m_logic,SIGNAL(updateShipPosition()),this,SLOT(setShipCoords()));
     connect(m_logic,SIGNAL(updateGals(int)),this,SLOT(setGals(int)));
     connect(m_logic->client,SIGNAL(readFail(QString)),this,SLOT(noData(QString)));
+    connect(m_logic,SIGNAL(setPlaneName(QString)),this,SLOT(setPlaneName(QString)));
     QPalette Pal(palette());
 
     // set black background
@@ -73,6 +74,12 @@ Widget::Widget(QWidget *parent) :
     setPalette(Pal);
 
 }
+void Widget::setPlaneName(QString str)
+{
+    planeName = str;
+    ui->labelPlan->setText(planeName);
+}
+
 void Widget::noData(QString msg)
 {
     ui->graphicsView->setScene(m_sceneCap);

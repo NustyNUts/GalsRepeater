@@ -29,7 +29,7 @@ void Logic::getMsg(QString msg)
     else
     {
         QStringList strList;
-        strList = msg.split(",");
+        strList = msg.split(',');
         if(strList[0]=="$GL")
         {
             if(strList[1] == "0")
@@ -54,6 +54,11 @@ void Logic::getMsg(QString msg)
             }
             gals->append(tmpGals);
             emit updateGals(1);
+        }
+        if(strList[0]=="$GLP")
+        {
+            qDebug()<<strList;
+            emit setPlaneName(strList[1]);
         }
     }
 
