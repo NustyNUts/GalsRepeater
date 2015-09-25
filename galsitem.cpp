@@ -4,7 +4,7 @@
 GalsItem::GalsItem()
 {
     m_gals = new QVector<Gals*>();
-    m_scale = 20000;
+    //m_scale = 20000;
     minX=INT_MAX;
     minY=INT_MAX;
     maxX=INT_MIN;
@@ -50,6 +50,8 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawEllipse(x1-5,y1-5,10,10);
         }
     }
+    painter->drawRect(m_boundRect);
+    qDebug()<<m_boundRect<<"galsbound";
 }
 void GalsItem::setGals(QVector<Gals *>* gals)
 {

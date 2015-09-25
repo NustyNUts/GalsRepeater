@@ -158,14 +158,14 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>782</width>
-       <height>471</height>
+       <width>0</width>
+       <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>782</width>
-       <height>471</height>
+       <width>99999</width>
+       <height>99999</height>
       </size>
      </property>
      <property name="verticalScrollBarPolicy">

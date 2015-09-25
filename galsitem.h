@@ -15,10 +15,10 @@ class GalsItem : public QGraphicsItem
     int m_scale;
     QRectF m_boundRect;
     QVector<Gals*>* m_gals;
-    int minX;
-    int minY;
-    int maxX;
-    int maxY;
+    double minX;
+    double minY;
+    double maxX;
+    double maxY;
 public:
     GalsItem();
     QRectF boundingRect() const;

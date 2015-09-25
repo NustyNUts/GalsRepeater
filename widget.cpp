@@ -157,6 +157,7 @@ void Widget::setGals(int checkGals)
         ui->labelGalsGet->setText("Галс получен");
     if(checkGals == 0)
         ui->labelGalsGet->setText("Галс отсутствует");
+
     m_scene->removeItem(m_galsItem);
     m_galsItem->setGals(m_logic->gals);
     m_scene->addItem(m_galsItem);
