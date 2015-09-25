@@ -95,11 +95,11 @@ void Widget::noData(QString msg)
     m_sceneCap->addItem(textItem);
     //ui->graphicsView->centerOn(textItem);
     m_sceneCap->update(textItem->boundingRect());
-    ui->speedLabel->setText("");
-    ui->courseLabel->setText("");
-    ui->latLabel->setText("");
-    ui->lonLabel->setText("");
-    ui->gpsTimeLabel->setText("");
+    ui->speedLabel->setText("x.x");
+    ui->courseLabel->setText("x.x");
+    ui->latLabel->setText("xx°xx.xxx'");
+    ui->lonLabel->setText("xx°xx.xxx'");
+    ui->gpsTimeLabel->setText("xx:xx:xx");
 
 }
 
@@ -111,8 +111,8 @@ Widget::~Widget()
 void Widget::setShipCoords()
 {
     ui->graphicsView->setScene(m_scene);
-    ui->speedLabel->setText(QString::number(m_logic->ship->getSpeed()));
-    ui->courseLabel->setText(QString::number(m_logic->ship->getCourse()));
+    ui->speedLabel->setText(QString::number(m_logic->ship->getSpeed(),'f',1)+" уз.");
+    ui->courseLabel->setText(QString::number(m_logic->ship->getCourse(),'f',1)+"°");
     int latInt;
     double latFracPart;
     int lonInt;
