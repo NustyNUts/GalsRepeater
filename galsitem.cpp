@@ -50,8 +50,6 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             painter->drawEllipse(x1-5,y1-5,10,10);
         }
     }
-    painter->drawRect(m_boundRect);
-    qDebug()<<m_boundRect<<"galsbound";
 }
 void GalsItem::setGals(QVector<Gals *>* gals)
 {

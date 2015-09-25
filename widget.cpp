@@ -126,6 +126,13 @@ void Widget::setShipCoords()
     ui->gpsTimeLabel->setText(m_logic->getGpsTime());
 
 
+    m_scene->removeItem(m_galsItem);
+    m_galsItem->setScale(m_scale);
+    m_galsItem->setGals(m_logic->gals);
+    m_scene->addItem(m_galsItem);
+    m_scene->update(m_galsItem->boundingRect());
+     m_scene->update();
+
     m_scene->removeItem(m_shipItem);
     m_shipItem->setPosition(m_logic->ship->getLatitude(),m_logic->ship->getLongitude(),m_logic->ship->getPJ());
     m_shipItem->setCourse(m_logic->ship->getCourse());
@@ -144,12 +151,7 @@ void Widget::setShipCoords()
     m_scene->update(m_gridItem->boundingRect());
     m_scene->update(m_galsItem->boundingRect());
 
-    m_scene->removeItem(m_galsItem);
-    m_galsItem->setScale(m_scale);
-    m_galsItem->setGals(m_logic->gals);
-    m_scene->addItem(m_galsItem);
-    m_scene->update(m_galsItem->boundingRect());
-     m_scene->update();
+
 }
 void Widget::setGals(int checkGals)
 {
@@ -164,6 +166,11 @@ void Widget::setGals(int checkGals)
     m_scene->update(m_galsItem->boundingRect());
     m_scene->update();
 
+    m_scene->removeItem(m_shiptail);
+    m_scene->addItem(m_shiptail);
+
+    m_scene->removeItem(m_shipItem);
+    m_scene->addItem(m_shipItem);
 }
 
 //$GPRMC,hhmmss.sss,A,GGMM.MM,P,gggmm.mm,J,v.v,b.b,ddmmyy,x.x,n,m*hh<CR><LF>
@@ -245,6 +252,7 @@ void Widget::on_comboBox_currentIndexChanged(int index)
     m_shiptail->setTailScale(m_scale);
     m_scene->addItem(m_shiptail);
     m_scene->update(m_shiptail->boundingRect());
+
 
 
 }
