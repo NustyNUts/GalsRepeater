@@ -31,7 +31,10 @@ public:
     {
         m_scale = scale;
     }
-
+    void clearTail()
+    {
+        m_shipTail->clear();
+    }
 };
 
 #endif // SHIPTAIL_H

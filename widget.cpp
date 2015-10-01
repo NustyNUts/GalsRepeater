@@ -256,3 +256,8 @@ void Widget::on_comboBox_currentIndexChanged(int index)
 
 
 }
+
+void Widget::on_pushButton_2_clicked()
+{
+    m_shiptail->clearTail();
+}

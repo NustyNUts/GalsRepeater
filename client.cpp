@@ -54,7 +54,7 @@ void Client::connected()
 
 void Client::readHostMessage()
 {
-    qDebug()<<"get msg";
+   // qDebug()<<"get msg";
     m_timerCheckData->start(50000);
     //qDebug()<<m_soket->readAll();
     emit messageFormed(m_soket->readAll());
