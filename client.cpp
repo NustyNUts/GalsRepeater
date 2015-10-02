@@ -36,7 +36,7 @@ void Client::noData()
     if(!m_connectState)
         emit readFail("ПОДКЛЮЧЕНИЕ ОТСУТСТВУЕТ");
     else
-        emit readFail("НЕТ КООРДИНАТ");
+        emit readFail("КООРДИНАТЫ ОТСУТСТВУЮТ");
 }
 
 void Client::openConnection()
