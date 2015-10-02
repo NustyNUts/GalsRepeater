@@ -113,13 +113,13 @@
       <widget class="QLabel" name="gpsTimeLabel">
        <property name="minimumSize">
         <size>
-         <width>60</width>
+         <width>70</width>
          <height>0</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
-         <width>60</width>
+         <width>70</width>
          <height>16777215</height>
         </size>
        </property>
@@ -144,7 +144,7 @@
        </property>
        <property name="maximumSize">
         <size>
-         <width>37</width>
+         <width>40</width>
          <height>16777215</height>
         </size>
        </property>
@@ -301,13 +301,13 @@
         <widget class="QLabel" name="label_2">
          <property name="minimumSize">
           <size>
-           <width>70</width>
+           <width>158</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>158</width>
+           <width>220</width>
            <height>16777215</height>
           </size>
          </property>
@@ -378,13 +378,13 @@
         <widget class="QLabel" name="label">
          <property name="minimumSize">
           <size>
-           <width>70</width>
+           <width>85</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>70</width>
+           <width>85</width>
            <height>16777215</height>
           </size>
          </property>
@@ -400,13 +400,13 @@
         <widget class="QLabel" name="speedLabel">
          <property name="minimumSize">
           <size>
-           <width>40</width>
+           <width>55</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>40</width>
+           <width>55</width>
            <height>16777215</height>
           </size>
          </property>
