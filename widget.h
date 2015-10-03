@@ -50,6 +50,7 @@ public slots:
     void setGals(int checkGals);
     void noData(QString msg);
     void setPlaneName(QString str);
+    void setDeviation(double dev);
 
 
 

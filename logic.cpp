@@ -62,6 +62,10 @@ void Logic::getMsg(QString msg)
             qDebug()<<strList;
             emit setPlaneName(strList[1]);
         }
+        if(strList[0] == "$DEV")
+        {
+            emit setDeviation(strList[1].toDouble());
+        }
     }
 
 }

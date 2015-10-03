@@ -19,6 +19,8 @@ class GalsItem : public QGraphicsItem
     double minY;
     double maxX;
     double maxY;
+    double deviation;
+    bool showDev;
 public:
     GalsItem();
     QRectF boundingRect() const;
@@ -33,6 +35,14 @@ public:
     void setDayNight(bool DN)
     {
         m_dayNight = DN;
+    }
+    void setDeviation(double dev)
+    {
+        deviation =dev;
+    }
+    void setdevShow(bool shDev)
+    {
+        showDev = shDev;
     }
 };
 

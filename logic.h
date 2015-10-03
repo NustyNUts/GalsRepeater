@@ -33,6 +33,7 @@ signals:
     void updateGals(int i);
     void noData();
     void setPlaneName(QString);
+    void setDeviation(double);
 public slots:
     void getMsg(QString msg);
 

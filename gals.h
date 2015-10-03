@@ -11,7 +11,6 @@ class Gals : public QObject
     int galsNum;
     QVector<QString>* m_pointsPJ;
     QVector<QPointF>* m_points;
-
 public:
     explicit Gals(QObject *parent = 0);
     void addPoint(QPointF pt, QString PJ)

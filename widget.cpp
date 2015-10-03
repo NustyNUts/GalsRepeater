@@ -62,18 +62,28 @@ Widget::Widget(QWidget *parent) :
     m_scene->update(m_shipItem->boundingRect());
     m_scene->update(m_gridItem->boundingRect());
     m_scene->update(m_galsItem->boundingRect());
-    connect(m_logic,SIGNAL(updateShipPosition()),this,SLOT(setShipCoords()));
-    connect(m_logic,SIGNAL(updateGals(int)),this,SLOT(setGals(int)));
-    connect(m_logic->client,SIGNAL(readFail(QString)),this,SLOT(noData(QString)));
-    connect(m_logic,SIGNAL(setPlaneName(QString)),this,SLOT(setPlaneName(QString)));
-    QPalette Pal(palette());
 
+    QPalette Pal(palette());
+    ui->gpsTimeLabel->hide();
+    ui->label_6->hide();
     // set black background
     Pal.setColor(QPalette::Background, QColor("#DCE4E5"));
     setAutoFillBackground(true);
     setPalette(Pal);
 
+    connect(m_logic,SIGNAL(updateShipPosition()),this,SLOT(setShipCoords()));
+    connect(m_logic,SIGNAL(updateGals(int)),this,SLOT(setGals(int)));
+    connect(m_logic->client,SIGNAL(readFail(QString)),this,SLOT(noData(QString)));
+    connect(m_logic,SIGNAL(setPlaneName(QString)),this,SLOT(setPlaneName(QString)));
+    connect(m_logic,SIGNAL(setDeviation(double)),this,SLOT(setDeviation(double)));
+
 }
+
+void Widget::setDeviation(double dev)
+{
+    m_galsItem->setDeviation(dev);
+}
+
 void Widget::setPlaneName(QString str)
 {
     planeName = str;
@@ -95,10 +105,10 @@ void Widget::noData(QString msg)
     m_sceneCap->addItem(textItem);
     //ui->graphicsView->centerOn(textItem);
     m_sceneCap->update(textItem->boundingRect());
-    ui->speedLabel->setText("x.x");
-    ui->courseLabel->setText("x.x");
+    ui->speedLabel->setText("xx.x");
+    ui->courseLabel->setText("xxx.x");
     ui->latLabel->setText("xx°xx.xxx'");
-    ui->lonLabel->setText("xx°xx.xxx'");
+    ui->lonLabel->setText("xxx°xx.xxx'");
     ui->gpsTimeLabel->setText("xx:xx:xx");
 
 }

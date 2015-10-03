@@ -10,6 +10,8 @@ GalsItem::GalsItem()
     maxX=INT_MIN;
     maxY=INT_MIN;
     m_dayNight = true;
+    showDev = true;
+    deviation = 0.1/60;
 }
 void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
            QWidget *widget)
@@ -46,6 +48,17 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
             if(tmpPJ->value(j+1)[0] =='S')
                 y1=tmpPointVector->value(j+1).ry()*m_scale;
             painter->drawLine(x,y,x1,y1);
+            painter->setPen(QPen(QBrush("#F7BC22"),1.5,Qt::DashLine));
+            if(showDev)
+            {
+                QPen pen;
+                pen.setBrush(QBrush("#F7BC22"));
+                pen.setStyle(Qt::DashLine);
+                painter->setPen(pen);
+                painter->drawLine(x+deviation*m_scale,y+deviation*m_scale,x1+deviation*m_scale,y1+deviation*m_scale);
+                painter->drawLine(x-deviation*m_scale,y-deviation*m_scale,x1-deviation*m_scale,y1-deviation*m_scale);
+            }
+           // painter->setPen(QPen(QBrush("#F7BC22"),1.5));
             painter->drawEllipse(x-5,y-5,10,10);
             painter->drawEllipse(x1-5,y1-5,10,10);
         }
