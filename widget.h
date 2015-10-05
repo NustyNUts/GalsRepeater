@@ -45,6 +45,8 @@ private slots:
 
     void on_pushButton_2_clicked();
 
+    void on_pushButton_3_clicked();
+
 public slots:
     void setShipCoords();
     void setGals(int checkGals);

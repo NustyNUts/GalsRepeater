@@ -40,9 +40,9 @@ public:
     {
         deviation =dev;
     }
-    void setdevShow(bool shDev)
+    void setdevShow()
     {
-        showDev = shDev;
+        showDev = !showDev;
     }
 };
 

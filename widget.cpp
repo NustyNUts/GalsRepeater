@@ -81,7 +81,7 @@ Widget::Widget(QWidget *parent) :
 
 void Widget::setDeviation(double dev)
 {
-    m_galsItem->setDeviation(dev);
+    m_galsItem->setDeviation(dev/60);
 }
 
 void Widget::setPlaneName(QString str)
@@ -131,8 +131,20 @@ void Widget::setShipCoords()
     latFracPart = (m_logic->ship->getLatitude()-latInt)*60;
     lonInt = m_logic->ship->getLongitude();
     lonFracPart = (m_logic->ship->getLongitude()-lonInt)*60;
-    ui->latLabel->setText(QString::number(latInt)+"°"+QString::number(latFracPart,'f',3)+"'"+m_logic->ship->getPJ()[1]);
-    ui->lonLabel->setText(QString::number(lonInt)+"°"+QString::number(lonFracPart,'f',3)+"'"+m_logic->ship->getPJ()[0]);
+    QString tmpLatStr;
+    if(latInt/10<1)
+        tmpLatStr = "0";
+    else
+        tmpLatStr = "";
+    QString tmpLonStr;
+    if(lonInt/100<1)
+       tmpLonStr = "0";
+    else if(lonInt/10<1)
+        tmpLonStr = "00";
+    else
+        tmpLonStr = "";
+    ui->latLabel->setText(tmpLatStr+QString::number(latInt)+"°"+QString::number(latFracPart,'f',3)+"'"+m_logic->ship->getPJ()[1]);
+    ui->lonLabel->setText(tmpLonStr+QString::number(lonInt)+"°"+QString::number(lonFracPart,'f',3)+"'"+m_logic->ship->getPJ()[0]);
     ui->gpsTimeLabel->setText(m_logic->getGpsTime());
 
 
@@ -270,4 +282,9 @@ void Widget::on_comboBox_currentIndexChanged(int index)
 void Widget::on_pushButton_2_clicked()
 {
     m_shiptail->clearTail();
+}
+
+void Widget::on_pushButton_3_clicked()
+{
+    m_galsItem->setdevShow();
 }

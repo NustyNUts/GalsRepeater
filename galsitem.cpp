@@ -55,10 +55,13 @@ void GalsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                 pen.setBrush(QBrush("#F7BC22"));
                 pen.setStyle(Qt::DashLine);
                 painter->setPen(pen);
-                painter->drawLine(x+deviation*m_scale,y+deviation*m_scale,x1+deviation*m_scale,y1+deviation*m_scale);
-                painter->drawLine(x-deviation*m_scale,y-deviation*m_scale,x1-deviation*m_scale,y1-deviation*m_scale);
+                if(showDev)
+                {
+                    painter->drawLine(x+deviation*m_scale,y+deviation*m_scale,x1+deviation*m_scale,y1+deviation*m_scale);
+                    painter->drawLine(x-deviation*m_scale,y-deviation*m_scale,x1-deviation*m_scale,y1-deviation*m_scale);
+                }
             }
-           // painter->setPen(QPen(QBrush("#F7BC22"),1.5));
+            painter->setPen(QPen(QBrush("#F7BC22"),1.5));
             painter->drawEllipse(x-5,y-5,10,10);
             painter->drawEllipse(x1-5,y1-5,10,10);
         }
