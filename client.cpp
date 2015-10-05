@@ -26,6 +26,7 @@ void Client::newConnect()
     qDebug()<<"new connection";
     m_soket = m_server->nextPendingConnection();
     m_connectState = true;
+    emit readFail("КООРДИНАТЫ ОТСУТСТВУЮТ");
     connect(m_soket,SIGNAL(readyRead()),this,SLOT(readHostMessage()));
     connect(m_soket,SIGNAL(disconnected()),this,SLOT(disconnected()));
     m_timer->stop();
@@ -49,6 +50,7 @@ void Client::connected()
 {
     qDebug()<<"connected to "<<m_hostAddr<<":"<<m_hostPort;
     m_connectState = true;
+    emit readFail("КООРДИНАТЫ ОТСУТСТВУЮТ");
     m_timer->stop();
 }
 
